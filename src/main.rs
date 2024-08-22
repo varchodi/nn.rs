@@ -1,4 +1,4 @@
-use nn::{maths::Matrix, utils::sigmoid};
+use nn::maths::Matrix;
 use rand::Rng;
 
 fn f_wb(x: &Matrix<f32>, w: &Matrix<f32>, b: f32) -> Matrix<f32> {
