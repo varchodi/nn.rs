@@ -6,7 +6,7 @@ pub fn add(left: usize, right: usize) -> usize {
 }
 
 #[cfg(test)]
-mod tests {
+mod cool {
     use super::*;
 
     #[test]

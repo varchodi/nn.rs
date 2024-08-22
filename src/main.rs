@@ -1,4 +1,4 @@
-use nn::maths::Matrix;
+use nn::{maths::Matrix, utils::sigmoid};
 use rand::Rng;
 
 fn f_wb(x: &Matrix<f32>, w: &Matrix<f32>, b: f32) -> Matrix<f32> {
@@ -14,7 +14,7 @@ fn mse(prediction: &Matrix<f32>, output: &Matrix<f32>) -> f32 {
 }
 
 fn cost(x: &Matrix<f32>, w: &Matrix<f32>, y: &Matrix<f32>, b: f32) -> f32 {
-    mse(&f_wb(x, w, b), y)
+    mse(&sigmoid(&f_wb(x, w, b)), y)
 }
 
 /// Compute parameter gradient using limit formula **d/dx=(f(x+h)-f(x))/h (h -> -inf)**;   
@@ -106,19 +106,8 @@ fn main() {
     };
 
     let (w, b) = gradient_descent(
-        &input, &output, &weight_in, random_b, cost, gradient, 0.1, 5000,
+        &input, &output, &weight_in, random_b, cost, gradient, 0.1, 1000,
     );
-    // let mut w = weight_in;
-    // for _ in 0..10 {
-    //     let j = cost(&input, &w, &output, 1.00);
-    //     let dj_dw = cost(&input, &w.n_add(1e-3), &output, 1.0);
-    //     let costy = dj_dw;
-    //     w = w.n_subs(costy * 0.01);
-    //     println!("cost :{:?}", j);
-    // }
-    // // j.print();
-    // // dj_dw.print();
-    // w.print();
 
     let tr = f_wb(&input, &w, b);
     tr.print();
