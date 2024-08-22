@@ -1,4 +1,7 @@
-use nn::{maths::Matrix, utils::sigmoid};
+use nn::{
+    maths::Matrix,
+    utils::{sigmoid, tanh},
+};
 use rand::Rng;
 
 fn f_wb(x: &Matrix<f32>, w: &Matrix<f32>, b: f32) -> Matrix<f32> {
@@ -14,7 +17,7 @@ fn mse(prediction: &Matrix<f32>, output: &Matrix<f32>) -> f32 {
 }
 
 fn cost(x: &Matrix<f32>, w: &Matrix<f32>, y: &Matrix<f32>, b: f32) -> f32 {
-    mse(&sigmoid(&f_wb(x, w, b)), y)
+    mse(&tanh(&f_wb(x, w, b)), y)
 }
 
 /// Compute parameter gradient using limit formula **d/dx=(f(x+h)-f(x))/h (h -> -inf)**;   

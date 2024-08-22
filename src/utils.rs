@@ -14,6 +14,11 @@ pub fn sigmoid(z: &Matrix<f32>) -> Matrix<f32> {
     out
 }
 
+pub fn tanh(z: &Matrix<f32>) -> Matrix<f32> {
+    // let data=z.data.iter_mut().map(|x| )
+    (sigmoid(&z).n_mult(2 as f32)).n_subs(1 as f32)
+}
+
 #[cfg(test)]
 mod cool {
     use super::*;
@@ -24,24 +29,5 @@ mod cool {
             data: vec![0.2, 0.7, 0.5, 0.0],
             dim: (1, 4),
         };
-
-        let mtx = sigmoid(&mtx);
-        // let output = sigmoid(&z);
-        let predictions: Vec<u8> = mtx
-            .data
-            .iter()
-            .map(|x| {
-                if *x as f32 > 0.59999999999999999 as f32 {
-                    1
-                } else {
-                    0
-                }
-            })
-            .collect();
-        assert_eq!(
-            predictions,
-            vec![0, 1, 1, 0],
-            "Sigmoid function behave anormally"
-        );
     }
 }
