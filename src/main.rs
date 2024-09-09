@@ -46,6 +46,23 @@ fn gradient(
     (dw, db)
 }
 
+///  Train the model using gradient decent
+/// w = w - dw * learning_rate
+/// b =  b - db * learning_rate
+/// ### Args   
+/// >- **X (inputs)**                : f32 Matrix _(nExamples,nFeatures)_     
+/// >- **Y (Output)**                : f32 Matrix _(nExamples,1)_
+/// >- **w_in (initial_weights)**    : f32 Matrix _(1,nFeatures)_
+/// >- **b (initial_biases)**        : f32 Matrix _(1,nFeatures)_
+/// >- **cost_f (cost_function)**    : _(x:Matrix,w:Matrix,y:Matrix,b:Matrix|f32)->Matrix_
+/// >- **gradient_function (gradient calc)**    : _(x:Matrix,w:Matrix,cost_f,y:Matrix,b:Matrix|f32)_    
+/// >- **alpha (Learning_rate)**     : f32
+/// >- **iterations (number of iterations *steps*)**    : f32
+///
+/// ### Outputs:     
+/// >Final weights and biases    
+/// >**(w, b)** :(w:Matrix(1,nFeatures),b:Matrix|number)
+///   
 fn gradient_descent(
     x: &Matrix<f32>,
     y: &Matrix<f32>,
@@ -91,13 +108,13 @@ fn main() {
     let random_b: f32 = rng.r#gen();
 
     let input: Matrix<f32> = Matrix {
-        data: vec![1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0],
-        dim: (4, 2),
+        data: vec![1.0, 1.0, 1.0, 2.0, 1.0, 3.0, 1.0, 4.0, 1.0, 5.0],
+        dim: (5, 2),
     };
 
     let output: Matrix<f32> = Matrix {
-        data: vec![0.0, 1.0, 0.0, 0.0],
-        dim: (4, 1),
+        data: vec![3.0, 5.0, 7.0, 9.0, 11.0],
+        dim: (5, 1),
     };
 
     let weight_in: Matrix<f32> = Matrix {
@@ -106,7 +123,7 @@ fn main() {
     };
 
     let (w, b) = gradient_descent(
-        &input, &output, &weight_in, random_b, cost, gradient, 0.1, 5000,
+        &input, &output, &weight_in, random_b, cost, gradient, 0.1, 500,
     );
     // let mut w = weight_in;
     // for _ in 0..10 {
